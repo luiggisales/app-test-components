@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 import FileUpload from "@/components/upload-drop";
 import { HomeData, HomeSchema } from "@/schemas/home-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +13,7 @@ import { Controller, useForm } from "react-hook-form";
 
 function HomeTemplate() {
   const [dataView, setDataView] = useState<HomeData>()
+  const { toast } = useToast()
   const {
     handleSubmit,
     control,
@@ -24,7 +27,14 @@ function HomeTemplate() {
   function onSubmit(data: HomeData){
     console.log(data);
     setDataView(data)
-    
+    toast({
+      variant: 'success',
+      title: "Formulário",
+      description: "Seus dados foram enviados",
+      action: (
+        <ToastAction altText="obrigado" className="hover:bg-white hover:text-primary">Obrigado</ToastAction>
+      ),
+    })
   }  
   return (
     <div className='w-full flex flex-col m-auto min-h-screen p-4 items-center'>
