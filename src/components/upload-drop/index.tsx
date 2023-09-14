@@ -4,6 +4,8 @@ import { MAX_SIZE_FILE } from '@/schemas/home-form.schema';
 import Image from 'next/image';
 import { UploadCloud } from 'lucide-react';
 import { FaUser } from 'react-icons/fa'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Input } from '../ui/input';
 
 interface FileUploadProps {
   onFileUpload: (files: File[]) => void;
@@ -52,14 +54,12 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
     <>
     {/* Preview */}
     <div className='w-full m-auto mb-4 flex flex-col justify-center items-center'>
-      <div className="flex h-24 w-24 items-center justify-center rounded-full bg-root_primary-100 text-root_primary-300">
+      <div className="flex h-24 w-24 items-center justify-center rounded-full bg-primary text-primary-foreground">
         {previewImage ? (
-          <Image
-            src={previewImage}
-            alt="Preview"
-            className="max-w-full max-h-40 rounded-full w-auto h-auto"
-            width={96} height={96}
-          />
+          <Avatar className='w-full h-full'>
+            <AvatarFallback>LS</AvatarFallback>
+            <AvatarImage src={previewImage}/>
+          </Avatar>
         ) : (
           <FaUser size={24} />
         )}
@@ -75,7 +75,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
       <div data-success={isDragAccept} data-error={isDragReject} {...getRootProps()} className={`flex flex-col items-center justify-center text-gray-600 w-full h-full
         data-[success=true]:text-green-600 data-[error=true]:text-red-600  
       `}>
-        <input {...getInputProps()} />
+        <Input {...getInputProps()} />
         <div data-success={isDragAccept} data-error={isDragReject} className={`m-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-slate-300 text-root_secondary-200
         data-[success=true]:text-green-600 data-[error=true]:text-red-600  
         `}>

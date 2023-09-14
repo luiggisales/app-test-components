@@ -1,5 +1,8 @@
 'use client'
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import FileUpload from "@/components/upload-drop";
 import { HomeData, HomeSchema } from "@/schemas/home-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,9 +33,9 @@ function HomeTemplate() {
       <div className="max-w-xl w-full my-4">
         <form onSubmit={handleSubmit(onSubmit)} className="m-auto flex flex-col justify-between items-center gap-2">
           <div className="w-full m-auto">
-            <label className="block text-gray-600 font-bold mb-2">
+            <Label className="block text-gray-600 font-bold mb-2">
               Upload de Arquivos
-            </label>
+            </Label>
             <Controller
               name="file"
               control={control}
@@ -44,22 +47,22 @@ function HomeTemplate() {
               <p className="text-red-500 text-sm mt-2">{errors.file.message}</p>
             )}
           </div>
-          <div className="w-full m-auto">
-            <label className="block text-gray-600 font-bold mb-2">
+          <div className="w-full m-auto mt-2">
+            <Label className="block text-gray-600 font-bold mb-2">
               Nome
-            </label>
-            <input type="text" {...register('name')} placeholder="Digite seu nome completo" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+            </Label>
+            <Input type="text" {...register('name')} placeholder="Digite seu nome completo" />
             {errors.name && (
               <p className="text-red-500 text-sm mt-2">{errors.name.message}</p>
             )}
           </div>
           <div className="mt-2 text-center w-full flex justify-between items-center gap-x-4">
-            <button
+            <Button
               type="submit"
-              className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              className="w-full"
             >
               Enviar
-            </button>
+            </Button>
           </div>
         </form>
       </div>
