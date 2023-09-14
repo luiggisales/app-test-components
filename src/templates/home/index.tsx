@@ -3,9 +3,11 @@
 import FileUpload from "@/components/upload-drop";
 import { HomeData, HomeSchema } from "@/schemas/home-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 function HomeTemplate() {
+  const [dataView, setDataView] = useState<HomeData>()
   const {
     handleSubmit,
     control,
@@ -18,6 +20,7 @@ function HomeTemplate() {
 
   function onSubmit(data: HomeData){
     console.log(data);
+    setDataView(data)
     
   }  
   return (
@@ -59,6 +62,9 @@ function HomeTemplate() {
             </button>
           </div>
         </form>
+      </div>
+      <div className="mt-2 max-w-xl w-full">
+        {dataView && <pre className="w-full">{JSON.stringify(dataView,null,2)}</pre>}
       </div>
     </div>
   )
