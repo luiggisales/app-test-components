@@ -1,8 +1,11 @@
 'use client'
 
+import CalendarCustom from "@/components/calendar-custom";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import FileUpload from "@/components/upload-drop";
@@ -10,6 +13,9 @@ import { toastPosition } from "@/config/toast-positon.config";
 import { cn } from "@/lib/utils";
 import { HomeData, HomeSchema } from "@/schemas/home-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+import ptBR from 'date-fns/locale/pt-BR';
+import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -20,11 +26,13 @@ function HomeTemplate() {
     handleSubmit,
     control,
     register,
+    watch,
     formState: { errors },
   } = useForm<HomeData>({
     mode: 'all',
     resolver: zodResolver(HomeSchema),
   });
+  const date = watch('date')
 
   function onSubmit(data: HomeData){
     console.log(data);
@@ -68,6 +76,14 @@ function HomeTemplate() {
             {errors.name && (
               <p className="text-red-500 text-sm mt-2">{errors.name.message}</p>
             )}
+          </div>
+          <div className="w-full m-auto mt-2">
+            <Label className="block text-gray-600 font-bold mb-2">Data de aniversário</Label>
+            <Controller
+              name="date"
+              control={control}
+              render={({ field }) => <CalendarCustom view={date} value={field.value} onChange={field.onChange}/>}
+            />
           </div>
           <div className="mt-2 text-center w-full flex justify-between items-center gap-x-4">
             <Button

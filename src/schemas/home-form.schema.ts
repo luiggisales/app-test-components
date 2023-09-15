@@ -1,3 +1,4 @@
+import { isValidPtBRDate } from '@/helpers/isValidPtBRDate';
 import { z } from 'zod';
 export const MAX_SIZE_FILE = 2 * 1024 * 1024
 
@@ -22,6 +23,9 @@ export const HomeSchema = z.object({
   )
   .min(1, 'Por favor, faça o upload de pelo menos um arquivo.')
   .transform((files) => files.length > 0 && files[0]),
-  name: z.string().min(1, 'Preencha o campo de nome')
+  name: z.string().min(1, 'Preencha o campo de nome'),
+  date: z.date({
+    required_error: "A date of birth is required.",
+  }),
 });
 export type HomeData = z.infer<typeof HomeSchema>;
