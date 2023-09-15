@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import FileUpload from "@/components/upload-drop";
+import { toastPosition } from "@/config/toast-positon.config";
+import { cn } from "@/lib/utils";
 import { HomeData, HomeSchema } from "@/schemas/home-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -31,6 +33,7 @@ function HomeTemplate() {
       variant: 'success',
       title: "Formulário",
       description: "Seus dados foram enviados",
+      className: cn(toastPosition.topRight),
       action: (
         <ToastAction altText="obrigado" className="hover:bg-white hover:text-primary">Obrigado</ToastAction>
       ),
