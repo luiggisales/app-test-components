@@ -1,5 +1,4 @@
 import { checkImageDimensions } from '@/helpers/checkImageDimensions';
-import { checkImageDimensionsSync } from '@/helpers/checkImageDimensionsSync';
 import { z } from 'zod';
 
 export const MAX_FILE_SIZE = 2 * 1024 * 1024
@@ -14,7 +13,7 @@ export const HomeSchema = z.object({
     if (!file) return true;
 
     // Verificar as dimensões da imagem de forma assíncrona
-    const isValidDimensions = await checkImageDimensionsSync({ file: file[0], maxWidth: 640, maxHeight: 640 });
+    const isValidDimensions = await checkImageDimensions({ file: file[0], maxWidth: 640, maxHeight: 640 });
 
     // Verifica o tipo de arquivo apenas se as dimensões forem válidas
     if (isValidDimensions) {
@@ -22,7 +21,7 @@ export const HomeSchema = z.object({
     }
 
     return false;
-  }, { message: `Formato inválido ou dimensões da imagem não atendem aos critérios. Formatos aceitos jpeg, jpg, png, webp e ter 640x640px` })
+  }, { message: `Formato inválido ou dimensões da imagem não atendem aos critérios. Formatos aceitos [jpeg, jpg, png, webp], ter 640x640px e conter no máxino 2mb` })
   .refine((file) => {
     // O campo é opcional, então é válido se for null ou undefined
     if (!file) return true;
