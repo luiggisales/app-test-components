@@ -19,6 +19,10 @@ const sidebarNavItems = [
     title: "Upload",
     href: "/",
   },
+  {
+    title: "Input Custom",
+    href: "/input-custom",
+  },
 ]
 
 export default function RootLayout({
