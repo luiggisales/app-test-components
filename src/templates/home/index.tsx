@@ -84,6 +84,9 @@ function HomeTemplate() {
               control={control}
               render={({ field }) => <CalendarCustom view={date} value={field.value} onChange={field.onChange}/>}
             />
+            {errors.date && (
+              <p className="text-red-500 text-sm mt-2">{errors.date.message}</p>
+            )}
           </div>
           <div className="mt-2 text-center w-full flex justify-between items-center gap-x-4">
             <Button

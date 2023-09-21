@@ -38,7 +38,16 @@ export const HomeSchema = z.object({
 
   name: z.string().min(1, 'Preencha o campo de nome'),
   date: z.date({
-    required_error: "A date of birth is required.",
+    required_error: 'Informe sua data de aniversário'
+  })
+  .refine((date) => {
+    // Verifica se a idade mínima é de 18 anos
+    const today = new Date();
+    const eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  
+    return date <= eighteenYearsAgo;
+  }, {
+    message: "Você deve ter pelo menos 18 anos de idade.",
   }),
 });
 export type HomeData = z.infer<typeof HomeSchema>;
