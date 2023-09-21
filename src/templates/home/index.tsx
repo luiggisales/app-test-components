@@ -65,7 +65,7 @@ function HomeTemplate() {
               )}
             />
             {errors.file && (
-              <p className="text-red-500 text-sm mt-2">{errors.file.message}</p>
+              <p className="text-red-500 text-sm mt-2">{String(errors.file.message)}</p>
             )}
           </div>
           <div className="w-full m-auto mt-2">
