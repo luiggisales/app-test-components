@@ -2,10 +2,8 @@
 
 import CalendarCustom from "@/components/calendar-custom";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import FileUpload from "@/components/upload-drop";
@@ -13,9 +11,6 @@ import { toastPosition } from "@/config/toast-positon.config";
 import { cn } from "@/lib/utils";
 import { HomeData, HomeSchema } from "@/schemas/home-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
-import ptBR from 'date-fns/locale/pt-BR';
-import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
