@@ -39,31 +39,31 @@ function InputMaskTemplate() {
       <h3 className="text-lg text-slate-500">Componente de input com adaptação de mascara</h3>
       <div className="max-w-xl w-full my-4">
         <form onSubmit={handleSubmit(onSubmit)} className="m-auto flex flex-col justify-between items-center gap-2 gap-y-4">
-          <div className="w-full m-auto">
+          <div className="w-full m-auto my-3 h-[72px]">
             <Label className="block text-gray-600 font-bold mb-2">
               CPF
             </Label>
             <InputMask {...register('vatNumber')} mask='999.999.999-99'/>
             {errors.vatNumber && (
-              <p className="text-red-500 text-sm mt-2">{errors.vatNumber.message}</p>
+              <div className="text-red-500 text-sm mt-2 overflow-hidden">{errors.vatNumber.message}</div>
             )}
           </div>
-          <div className="w-full m-auto">
+          <div className="w-full m-auto my-3 h-[72px]">
             <Label className="block text-gray-600 font-bold mb-2">
               CEP
             </Label>
             <InputMask {...register('zipCode')} mask='99999-999'/>
             {errors.zipCode && (
-              <p className="text-red-500 text-sm mt-2">{errors.zipCode.message}</p>
+              <div className="text-red-500 text-sm mt-2 overflow-hidden">{errors.zipCode.message}</div>
             )}
           </div>
-          <div className="w-full m-auto">
+          <div className="w-full m-auto my-3 h-[72px]">
             <Label className="block text-gray-600 font-bold mb-2">
               Celular/Whatsapp
             </Label>
             <InputMask {...register('phoneNumber')} mask='(99) \99999-9999'/>
             {errors.phoneNumber && (
-              <p className="text-red-500 text-sm mt-2">{errors.phoneNumber.message}</p>
+              <div className="text-red-500 text-sm mt-2 overflow-hidden">{errors.phoneNumber.message}</div>
             )}
           </div>
           <div className="mt-2 text-center w-full flex justify-between items-center gap-x-4">

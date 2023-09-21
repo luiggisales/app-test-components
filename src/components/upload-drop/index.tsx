@@ -50,7 +50,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
   return (
     <>
     {/* Preview */}
-    <div className='w-full m-auto mb-4 flex flex-col justify-center items-center'>
+    <div className='w-full m-auto mb-4 flex flex-col justify-center items-center overflow-hidden'>
       <div className="flex h-24 w-24 items-center justify-center rounded-full bg-primary text-primary-foreground">
         {previewImage ? (
           <Avatar className='w-full h-full'>
