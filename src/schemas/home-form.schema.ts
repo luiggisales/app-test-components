@@ -1,49 +1,41 @@
 import { checkImageDimensions } from '@/helpers/checkImageDimensions';
+import { checkImageDimensionsSync } from '@/helpers/checkImageDimensionsSync';
 import { z } from 'zod';
 
 export const MAX_FILE_SIZE = 2 * 1024 * 1024
 export const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
-const ACCEPTED_FORMATS_STRING = ACCEPTED_IMAGE_TYPES.join(", ");
 
 export const HomeSchema = z.object({
   file: z
   .custom<FileList | null | undefined>()
   .optional()
-  .refine((file) => {
+  .refine(async (file) => {
     // O campo é opcional, então é válido se for null ou undefined
-    if (!file) return true
+    if (!file) return true;
 
-    if (!ACCEPTED_IMAGE_TYPES.includes(file[0].type)){
-      return false
+    // Verificar as dimensões da imagem de forma assíncrona
+    const isValidDimensions = await checkImageDimensionsSync({ file: file[0], maxWidth: 640, maxHeight: 640 });
+
+    // Verifica o tipo de arquivo apenas se as dimensões forem válidas
+    if (isValidDimensions) {
+      return ACCEPTED_IMAGE_TYPES.includes(file[0].type);
     }
-    return file
-  }, { message: `Formato de arquivo inválido, só são aceitos os formatos ${ACCEPTED_FORMATS_STRING}` })
+
+    return false;
+  }, { message: `Formato inválido ou dimensões da imagem não atendem aos critérios. Formatos aceitos jpeg, jpg, png, webp e ter 640x640px` })
   .refine((file) => {
     // O campo é opcional, então é válido se for null ou undefined
     if (!file) return true;
 
-    // Verifica o tamanho em MB da imagem e se é um formato aceito
-    if (file[0].size > MAX_FILE_SIZE) {
-      return false;
-    }
-    return file;
-  }, { message: `A imagem precisa ter até 2 MB` })
-  .refine((file) => {
-    // O campo é opcional, então é válido se for null ou undefined
-    if (!file) return true
+    // Verifique o tamanho em MB da imagem e se é um formato aceito
+    return !(file[0].size > MAX_FILE_SIZE);
+  }, { message: 'A imagem precisa conter no máximo 2mb.' })
+  .transform((file) => {
+    // Se o campo for nulo ou indefinido, converta-o para nulo
+    if (!file) return null;
 
-    // Verifica as dimensões da imagem, ela precisa corresponder a 640x640px, como está sendo passado na função abaixo
-    checkImageDimensions({
-      file: file[0],
-      resolution: {
-        minWidth: 640,
-        minHeight: 640,
-      }
-    }).then((isValid) => {
-      if (!isValid) return false
-      return true
-    })
-  }, { message: 'A imagem é muito grande, a imagem deve ter pelo menos 640x640 pixels' }),
+    return file;
+  }),
 
   name: z.string().min(1, 'Preencha o campo de nome'),
   date: z.date({

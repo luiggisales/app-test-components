@@ -1,13 +1,14 @@
 type Props = {
   file: File,
-  resolution: {
-    minWidth: number,
-    minHeight: number
-  }
+  maxWidth: number,
+  maxHeight: number
 }
 
 // Função para verificar as dimensões da imagem após o carregamento
-export async function checkImageDimensions({file, resolution }: Props): Promise<boolean> {
+export async function checkImageDimensions({file, maxWidth, maxHeight }: Props): Promise<boolean> {
+  if (!file) {
+    return true; // O campo é opcional, então é válido se for null ou undefined
+  }
   return new Promise<boolean>((resolve) => {
     const reader = new FileReader();
 
@@ -20,12 +21,12 @@ export async function checkImageDimensions({file, resolution }: Props): Promise<
         const height = img.naturalHeight;
         
         // Verifique as dimensões da imagem aqui
-        if (width <= resolution.minWidth && height <= resolution.minHeight) {
+        if (width <= maxWidth && height <= maxHeight) {
           console.log('A imagem atende aos critérios de resolução');
-          resolve(false); // A imagem atende aos critérios de resolução
+          resolve(true); // A imagem atende aos critérios de resolução
         } else {
           console.log('A imagem não atende aos critérios de resolução');
-          resolve(true); // A imagem não atende aos critérios de resolução
+          resolve(false); // A imagem não atende aos critérios de resolução
         }
       };
     };
