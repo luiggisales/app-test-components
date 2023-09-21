@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label"
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { toastPosition } from "@/config/toast-positon.config";
 import { cn } from "@/lib/utils";
 import { inputCustomModel, inputCustomSchema } from "@/schemas/input-custom.schema";
@@ -11,11 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 function InputCustomTemplate() {
+  const { toast } = useToast()
+
   const {
     handleSubmit,
-    control,
     register,
-    watch,
     formState: { errors },
   } = useForm<inputCustomModel>({
     mode: 'all',
@@ -26,7 +26,7 @@ function InputCustomTemplate() {
     console.log(data);
     toast({
       variant: 'success',
-      title: 'formulário',
+      title: 'Formulário',
       description: 'Seus dados foram enviados com sucesso',
       className: cn(toastPosition.bottomRight)
     })
@@ -34,7 +34,7 @@ function InputCustomTemplate() {
   return (
     <div className='w-full flex flex-col m-auto min-h-screen p-4 items-center'>
       <h1 className='font-bold text-3xl text-slate-600'>Bem vindo</h1>
-      <h3 className="text-lg text-slate-500">Componente de input com adaptação de mask, password</h3>
+      <h3 className="text-lg text-slate-500">Componente de input com adaptação de password</h3>
       <div className="max-w-xl w-full my-4">
         <form onSubmit={handleSubmit(onSubmit)} className="m-auto flex flex-col justify-between items-center gap-2">
           <div className="w-full m-auto">

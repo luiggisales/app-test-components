@@ -23,6 +23,10 @@ const sidebarNavItems = [
     title: "Input Custom",
     href: "/input-custom",
   },
+  {
+    title: "Input Mask",
+    href: "/input-mask",
+  },
 ]
 
 export default function RootLayout({
