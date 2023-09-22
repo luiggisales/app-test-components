@@ -27,6 +27,10 @@ const sidebarNavItems = [
     title: "Input Mask",
     href: "/input-mask",
   },
+  {
+    title: "Select",
+    href: "/select-dependency",
+  },
 ]
 
 export default function RootLayout({
