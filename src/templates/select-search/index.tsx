@@ -97,7 +97,8 @@ function SelectSearchTemplate() {
                             {ufs.map((uf) => (
                               <CommandItem key={uf.id} value={uf.sigla.toLowerCase()}
                               onSelect={(currentValue => (
-                                form.setValue('uf', currentValue)
+                                form.setValue('uf', currentValue),
+                                form.clearErrors('uf')
                               ))}>
                                 {uf.sigla}
                                 <CheckIcon
@@ -154,7 +155,8 @@ function SelectSearchTemplate() {
                             {citiesUF.map((city) => (
                               <CommandItem key={city.id} value={city.nome.toLowerCase()}
                               onSelect={(currentValue => (
-                                form.setValue('city', currentValue)
+                                form.setValue('city', currentValue),
+                                form.clearErrors('city')
                               ))}>
                                 {city.nome}
                                 <CheckIcon
