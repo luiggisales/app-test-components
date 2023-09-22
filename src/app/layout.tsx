@@ -31,6 +31,10 @@ const sidebarNavItems = [
     title: "Select",
     href: "/select-dependency",
   },
+  {
+    title: "Select Search",
+    href: "/select-search",
+  },
 ]
 
 export default function RootLayout({
